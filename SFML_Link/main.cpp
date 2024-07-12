@@ -1,24 +1,52 @@
 #include <SFML/Graphics.hpp>
+#include<SFML/Audio.hpp>
+#include<SFML/System.hpp>
+#include<SFML/Window.hpp>
+#include<SFML/Network.hpp>
+#include<iostream>
+
+//using namespace sf;
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+    //Window Operations
+    sf::RenderWindow window(sf::VideoMode(640, 480), "2D Window Test", sf::Style::Titlebar | sf::Style::Close | sf::Style::Close);
+    sf::Event ev;
 
+    //Game loop
     while (window.isOpen())
     {
-        sf::Event event;
-        while (window.pollEvent(event))
+        //Event polling
+
+        while (window.pollEvent(ev))
         {
-            if (event.type == sf::Event::Closed)
+            switch (ev.type)
+            {
+            case:: sf::Event::Closed: //Close button
                 window.close();
+                break;
+            case sf::Event::KeyPressed:
+                if (ev.key.code == sf::Keyboard::Escape)
+                    window.close();
+                break;
+            }
+
+
+            
+
         }
 
-        window.clear();
-        window.draw(shape);
-        window.display();
+
+        // Update
+
+        //Render
+        window.clear(); //Clear old frame
+        //window.clear(sf::Color::Blue); //Clear with the blue color.
+        //Draw the game
+
+        window.display(); //Tell app that window is done drawing
     }
 
+    //End of application
     return 0;
 }
