@@ -1,5 +1,5 @@
 #include "Game.h"
-
+#include <iostream>
 
 
 //Private functions
@@ -14,14 +14,26 @@ void Game::initWindow()
 	this->videoMode.width = 800;
 	this->videoMode.height = 600;
 	this->window = new  sf::RenderWindow(videoMode, "2D Window Test_Game 1", sf::Style::Titlebar | sf::Style::Close | sf::Style::Close);
-
+    this->window->setFramerateLimit(60);
 	//this->window = new  sf::RenderWindow(sf::VideoMode(800, 600), "2D Window Test_Game 1", sf::Style::Titlebar | sf::Style::Close | sf::Style::Close);
+}
+
+void Game::initEnemies()
+{
+    this->enemy.setPosition(10.f,10.f); //SFML, like OpenGL, has a coordinate system where the origin (0, 0) is in the top-left corner.
+    this->enemy.setSize(sf::Vector2f(100.f, 100.f));  //Setting up the size
+    this->enemy.setScale(sf::Vector2f(0.5f, 0.5f));   //Better way to manipulate the size of the object
+    this->enemy.setFillColor(sf::Color::Cyan);
+    this->enemy.setOutlineColor(sf::Color::Green);
+    this->enemy.setOutlineThickness(1.f);
+
 }
 
 Game::Game()
 {
 	this->initializeVariables();
 	this->initWindow();
+    this->initEnemies();
 }
 
 Game::~Game()
@@ -56,13 +68,17 @@ void Game::pollEvents()
 
 }
 
-    //Functions
+    
 void Game::update() //Updates the game - logic
 {
-    
-    this->pollEvents();
- 
+    //Functions
 
+    this->pollEvents();
+    
+    //update mouse position
+    
+    std::cout << "Mouse pos: " << sf::Mouse::getPosition().x << " " << sf::Mouse::getPosition().y << "\n"; //Relative to the all screen
+   
 
 }
 
@@ -77,9 +93,10 @@ void Game::render()
     
         Renders the game objects
     */
-    this->window->clear(sf::Color(255, 0, 0, 255));
+    this->window->clear(); //becomes black 
 
     //Draw game objects
+    this->window->draw(this->enemy);
 
     this->window->display();
 }

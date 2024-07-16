@@ -21,7 +21,7 @@ int main()
 
 
         // Update
-        //game.update();
+        game.update();
 
 
 

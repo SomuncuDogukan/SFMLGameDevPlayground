@@ -1,5 +1,9 @@
 #pragma once
 
+//#ifndef GAME_H // if not defined
+//#define GAME_H
+
+
 #include <SFML/Graphics.hpp>
 #include<SFML/Audio.hpp>
 #include<SFML/System.hpp>
@@ -12,12 +16,14 @@
 /*
 	Class that acts like the game engine.
 	Wrapper class.
+
 */
+
 class Game
 {
 
 
-	//Private Functions
+	
 private:
 	//Variables
 	//Window
@@ -25,18 +31,29 @@ private:
 	sf::VideoMode videoMode;
 	sf::Event ev;
 
+	//Game objects
+	// 
+	//sf::Sprite  //maybe later
+
+	sf::RectangleShape enemy;
+
+
+
+	//Private Functions
 	void initializeVariables();
 	void initWindow();
-
+	void initEnemies();
 
 
 public:
 
 	//Consturctors / Destructors
-	Game(); //Constructor
+	Game(); //Constructor - Called when a new game object has been created from Game class. 
 
-	virtual ~Game(); //Destructor
-
+	virtual ~Game(); //Destructor - Called automatically when a game object is destroyed, used cleanup the tasks. 
+					// Virtual for polymorphism and the sign of '~' for destructor.
+	
+					
 	//Accesors
 	const bool running() const;
 
