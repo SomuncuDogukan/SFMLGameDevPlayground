@@ -10,7 +10,13 @@
 #include<SFML/Window.hpp>
 #include<SFML/Network.hpp>
 
-//Check pre-compiled headers after all
+#include<vector>
+#include<iostream>
+
+/*
+   @todo Check pre-compiled headers after all.
+*/
+
 
 
 /*
@@ -31,10 +37,22 @@ private:
 	sf::VideoMode videoMode;
 	sf::Event ev;
 
+	//Mouse positions
+	sf::Vector2i mousePosWindow; //Better way of handeling mouse position with that and a function
+
+	//Game logic
+	int points; //score
+	float enemySpawnTimer;
+	float enemySpawnTimerMax;
+	int maxEnemies; //How many enemies on the screen
+
+
+	
 	//Game objects
 	// 
 	//sf::Sprite  //maybe later
 
+	std::vector<sf::RectangleShape> enemies;
 	sf::RectangleShape enemy;
 
 
@@ -61,8 +79,15 @@ public:
 	//Functions
 	void pollEvents();
 
+	void spawnEnemy();
+	void updateMousePosition();
+
+
+
+	void updateEnemies();
 	void update();
 
+	void renderEnemies();
 	void render();
 
 
