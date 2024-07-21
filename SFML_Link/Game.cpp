@@ -17,9 +17,9 @@ void Game::initializeVariables()
     //todo realclock timer
     //Enemies spawn directly
     this->points = 0;
-    this->enemySpawnTimerMax = 1000.f;
+    this->enemySpawnTimerMax = 10000.f;
     this->enemySpawnTimer = this->enemySpawnTimerMax;
-    this->maxEnemies = 5;
+    this->maxEnemies = 10;
 
 }
 
@@ -128,7 +128,7 @@ void Game::updateMousePosition()
     */
 
     this->mousePosWindow = sf::Mouse::getPosition(*this->window);
-
+    this->mousePosView = this->window->mapPixelToCoords(this->mousePosWindow);
 }
 
     
@@ -161,11 +161,44 @@ void Game::updateEnemies()
 
     }
 
-    //Move the enemies
-    for (auto& e : this->enemies) {
-    
-        e.move(0.f, 5.f);
-    
+    //Moving and Updating the enemies
+    for (int i = 0; i < this->enemies.size(); i++) {
+        
+        this->enemies[i].move(0.f, 5.f);
+        bool deleted = false;
+
+        //Check if clicked upon
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+        
+            //contains: Checks if a specific point is inside the bounds of an object.
+            //intersects: Determines whether the bounds of two objects overlap.
+            if (this->enemies[i].getGlobalBounds().contains(this->mousePosView))
+            {
+                this->enemies.erase(this->enemies.begin() + i); //To erase, it founds the realted enemy
+
+            }
+
+        }
+
+        if (this->enemies[i].getPosition().y >= this->window->getSize().y)
+        {
+            ////std::cout << "Enemy is out of the window";
+
+            //deleted = true;
+
+            ////Score
+            //this->points += 5.f;
+
+        }
+
+        //Final Delete
+        if (deleted) {
+
+
+            this->enemies.erase(this->enemies.begin() + i);
+
+        }
+
     }
 
 }

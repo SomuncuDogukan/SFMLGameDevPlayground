@@ -38,7 +38,8 @@ private:
 	sf::Event ev;
 
 	//Mouse positions
-	sf::Vector2i mousePosWindow; //Better way of handeling mouse position with that and a function
+	sf::Vector2i mousePosWindow; //Better way of handling mouse position with that and a function //Counted in integers x,y
+	sf::Vector2f mousePosView; //Counted in floats
 
 	//Game logic
 	int points; //score
